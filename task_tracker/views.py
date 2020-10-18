@@ -18,16 +18,15 @@ class ChangeStatusViewSet(ModelViewSet):
     permission_classes = [AllowAny, ]
 
     def create(self, request, *args, **kwargs):
-        import datetime as dt
         validated_data = request.data
         task = Task.objects.filter(pk=validated_data['task']).first()
         task.status = validated_data['next_status']
         task.save()
-        print(task)
-        print(task.supervisors)
-        for i in task.supervisors.all():
-            send_email_task()
-        # return super().create(request, *args, **kwargs)
+        reminder = Reminder.objects.create(task=task, text="статус изменился")
+        reminder.users.set(task.supervisors.all())
+        for i in reminder.users.all():
+            send_email_task.delay()
+        return super().create(request, *args, **kwargs)
 
 class ReminderViewSet(ModelViewSet):
     queryset = Reminder.objects.all()

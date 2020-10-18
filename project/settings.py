@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'tvzoy=_=l=cz^w@mh*id^3n3(p38e6wpkpfj8m3dq$*s1ywd#)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'task_tracker',
     'rest_framework',
-    'djcelery',
 ]
 
 MIDDLEWARE = [

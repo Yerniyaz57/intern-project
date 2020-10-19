@@ -1,14 +1,14 @@
+from __future__ import absolute_import
 from celery import shared_task
-import time
 from django.core.mail import send_mail
+# from project.celery import app
+
 
 @shared_task
-def send_email_task():
-    send_mail('Task Worked',
-    'This is pr the task worked',
+def send_email_task(email, text):
+    send_mail('Message',
+    text,
     'testuser.99@mail.ru',
-    ['bakhytov.yerniyaz@gmail.com'])
-    time.sleep(5)
+    [email])
     print("send email")
-    # return None
-
+    return None

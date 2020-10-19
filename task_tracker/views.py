@@ -29,7 +29,8 @@ class TaskViewSet(ModelViewSet):
 class ChangeStatusViewSet(ModelViewSet):
     queryset = ChangeStatus.objects.all()
     serializer_class = ChangeStatusSerializer
-    permission_classes = [AllowAny, ]
+    authentication_classes = [TokenAuthentication, SessionAuthentication, ]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         validated_data = request.data
@@ -44,8 +45,8 @@ class ChangeStatusViewSet(ModelViewSet):
 
 class ReminderViewSet(ModelViewSet):
     queryset = Reminder.objects.all()
-    serializer_class = ReminderSerializer
-    permission_classes = [AllowAny, ]
+    authentication_classes = [TokenAuthentication, SessionAuthentication, ]
+    permission_classes = [IsAuthenticated]
 
 class LoginView(APIView):
     def post(self, request):
